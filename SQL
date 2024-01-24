@@ -1,0 +1,27 @@
+#Managers with at Least 5 Direct Reports
+
+SELECT E.NAME
+FROM Employee E
+JOIN Employee Z ON E.id = Z.managerId 
+GROUP BY E.id, E.name
+HAVING COUNT(E.id) >= 5
+
+#Confirmation Rate
+SELECT
+    S.user_id,
+    ROUND(IFNULL(AVG(CASE WHEN C.action = 'confirmed' THEN 1 ELSE 0 END), 0), 2) AS confirmation_rate
+FROM
+    Signups S
+LEFT JOIN
+    Confirmations C ON S.user_id = C.user_id
+GROUP BY
+    S.user_id;
+
+#Not Boring Movies
+SELECT id, movie, description , rating 
+FROM CINEMA 
+WHERE description != 'boring' AND ((id%2) != 0  ) 
+ORDER BY rating desc 
+
+
+SELECT * FROM cinema WHERE (id % 2 = 1) AND (description != "boring") ORDER BY rating DESC;
